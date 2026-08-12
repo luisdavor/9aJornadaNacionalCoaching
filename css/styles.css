@@ -597,48 +597,9 @@ body {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-.team-card__avatar {
-  width: 4.5rem;
-  height: 4.5rem;
-  margin: 0 auto 1rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #fff;
-  transition: transform 0.3s ease;
-}
-
-.team-card:hover .team-card__avatar {
-  transform: scale(1.1) rotate(-4deg);
-}
-
-.team-card__avatar--blue {
-  background: linear-gradient(135deg, var(--color-blue), #1c4fa6);
-}
-
-.team-card__avatar--teal {
-  background: linear-gradient(135deg, var(--color-teal), #0d7873);
-}
-
-.team-card__avatar--green {
-  background: linear-gradient(135deg, var(--color-green), #4c9424);
-}
-
-.team-card__avatar--orange {
-  background: linear-gradient(135deg, var(--color-orange), #c8631a);
-}
-
-.team-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  margin: 0 0 0.6rem;
-}
-
 .team-card__bio {
   color: var(--color-text-muted);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   margin: 0;
 }
 
