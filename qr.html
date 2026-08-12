@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de QR | 9ª Jornada Nacional de Coaching</title>
+  <meta name="description" content="Genera y descarga un código QR para acceder rápido a cualquier página de la 9ª Jornada Nacional de Coaching." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Barra de logos -->
+  <header class="logobar">
+    <div class="container logobar__inner">
+      <a href="index.html" class="logobar__home">
+        <img class="logobar__logo" src="img/logo-jornada.png" alt="9na Jornada Nacional de Coaching" />
+      </a>
+      <span class="logobar__partner">Coaching &amp; Development Foundation</span>
+      <span class="logobar__partner logobar__partner--upb">UPB</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="etapa-hero">
+      <div class="container etapa-hero__inner">
+        <span class="etapa-badge reveal">Acceso rápido</span>
+        <h1 class="reveal reveal--delay-1">Generador de código QR</h1>
+        <p class="reveal reveal--delay-2">
+          Pega el enlace de cualquier página de este sitio (el inicio, una etapa del
+          Rally, la inscripción...) y genera un código QR listo para descargar,
+          imprimir o compartir.
+        </p>
+      </div>
+    </section>
+
+    <section class="section qr-tool">
+      <div class="container qr-tool__grid">
+        <div class="qr-tool__form reveal">
+          <label for="qr-url">Enlace a convertir en QR</label>
+          <input
+            type="url"
+            id="qr-url"
+            value="https://luisdavor.github.io/9aJornadaNacionalCoaching/"
+            placeholder="https://luisdavor.github.io/9aJornadaNacionalCoaching/"
+          />
+          <button id="qr-generate" class="btn">Generar QR</button>
+          <p class="qr-tool__hint">
+            Tip: usa el enlace completo, incluyendo <code>https://</code>. Por ejemplo,
+            para la Etapa 1 del Rally: <code>.../etapa-1.html</code>
+          </p>
+        </div>
+
+        <div class="qr-tool__result reveal reveal--delay-1">
+          <div id="qrcode" class="qr-tool__code"></div>
+          <button id="qr-download" class="btn btn--ghost" disabled>
+            &darr; Descargar QR
+          </button>
+        </div>
+      </div>
+
+      <div class="container etapa-nav">
+        <a href="index.html" class="btn btn--ghost">&larr; Inicio</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__stripe" aria-hidden="true"></div>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Asociación de Coaches Certificados &mdash; Bolivia, Santa Cruz.</p>
+    </div>
+  </footer>
+
+  <!-- Librería para generar el QR en el propio navegador (sin enviar el enlace a ningún servidor externo) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

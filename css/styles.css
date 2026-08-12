@@ -541,6 +541,201 @@ body {
   100% { transform: translateX(320%); }
 }
 
+/* Páginas de etapa (Rally) */
+.logobar__home {
+  display: flex;
+  align-items: center;
+}
+
+.etapa-hero {
+  background: radial-gradient(circle at 85% 15%, rgba(47, 111, 214, 0.3), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(232, 169, 75, 0.2), transparent 50%),
+    var(--color-navy);
+  padding: 3.5rem 0;
+  text-align: center;
+}
+
+.etapa-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.etapa-badge strong {
+  color: var(--color-gold);
+}
+
+.etapa-hero h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+}
+
+.etapa-hero p {
+  color: var(--color-text-muted);
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.etapa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.etapa-map {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.etapa-map img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+.map-placeholder {
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 2rem;
+}
+
+.map-placeholder span {
+  font-size: 2.5rem;
+}
+
+.etapa-indicaciones h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 1.25rem;
+}
+
+.etapa-lista {
+  margin: 0 0 1.5rem;
+  padding-left: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.etapa-lista li {
+  margin-bottom: 0.75rem;
+}
+
+.etapa-lista li::marker {
+  color: var(--color-teal);
+  font-weight: 700;
+}
+
+.etapa-tip {
+  background-color: rgba(111, 191, 63, 0.12);
+  border: 1px solid rgba(111, 191, 63, 0.3);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.etapa-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--color-text);
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-gold);
+  box-shadow: none;
+}
+
+/* Generador de QR */
+.qr-tool__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+.qr-tool__form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.qr-tool__form input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.qr-tool__form input:focus {
+  outline: none;
+  border-color: var(--color-teal);
+}
+
+.qr-tool__hint {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.qr-tool__hint code {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.qr-tool__result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.qr-tool__code {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  min-height: 220px;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-tool__result .btn--ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 600px) {
   .hero h1 {
     font-size: 1.9rem;
@@ -555,4 +750,7 @@ body {
     padding-left: 0;
   }
 
+  .etapa-nav {
+    flex-direction: column;
+  }
 }
