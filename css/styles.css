@@ -713,12 +713,31 @@ body {
   color: var(--color-text);
 }
 
+.etapa-tip + .etapa-tip {
+  margin-top: 1rem;
+}
+
+.etapa-tip--destacado {
+  background-color: rgba(232, 169, 75, 0.14);
+  border: 1px solid rgba(232, 169, 75, 0.45);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.etapa-tip--destacado strong {
+  color: var(--color-gold);
+}
+
 .etapa-nav {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 3rem;
+}
+
+.etapa-nav--center {
+  justify-content: center;
 }
 
 .btn--ghost {

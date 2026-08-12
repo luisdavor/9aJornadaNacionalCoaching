@@ -81,5 +81,6 @@ git checkout main
 
 - [ ] Agregar logo de **Coaching & Development Foundation** (`img/logo-cdf.png`)
 - [ ] Agregar logo de **UPB** (`img/logo-upb.png`)
-- [ ] Confirmar enlaces reales de Facebook y LinkedIn (actualmente `href="#"`)
+- [x] Enlace real de Facebook agregado
+- [ ] Confirmar enlace real de LinkedIn (actualmente `href="#"`)
 - [ ] Foto de fondo del hero (opcional, actualmente es un fondo con degradado)
