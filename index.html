@@ -3,78 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Proyecto | GitHub Pages</title>
+  <title>9ª Jornada Nacional de Coaching</title>
+  <meta name="description" content="Coaching en acción: el poder de la pausa en la era digital. 15 de agosto de 2026, Santa Cruz de la Sierra, Campus UPB." />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-  <header class="navbar">
-    <div class="container navbar__inner">
-      <a href="#inicio" class="navbar__brand">MiProyecto</a>
-      <nav class="navbar__links">
-        <a href="#inicio">Inicio</a>
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+  <!-- Barra de logos -->
+  <header class="logobar">
+    <div class="container logobar__inner">
+      <img class="logobar__logo" src="img/logo-jornada.png" alt="9na Jornada Nacional de Coaching" />
+      <!-- TODO: reemplazar por <img src="img/logo-cdf.png" alt="Coaching & Development Foundation"> -->
+      <span class="logobar__partner">Coaching &amp; Development Foundation</span>
+      <!-- TODO: reemplazar por <img src="img/logo-upb.png" alt="UPB"> -->
+      <span class="logobar__partner logobar__partner--upb">UPB</span>
     </div>
   </header>
 
   <main>
-    <section id="inicio" class="hero">
-      <div class="container">
-        <h1>Hola, soy <span class="highlight">Tu Nombre</span></h1>
-        <p class="hero__subtitle">Desarrollador/a &middot; Este es un sitio de prueba para GitHub Pages</p>
-        <a href="#proyectos" class="btn">Ver proyectos</a>
-      </div>
-    </section>
-
-    <section id="sobre-mi" class="section">
-      <div class="container">
-        <h2>Sobre mí</h2>
-        <p>
-          Escribe aquí una breve descripción sobre ti o tu proyecto. Este archivo
-          es una plantilla base para que puedas ver cómo se vería tu sitio en
-          GitHub Pages antes de personalizarlo.
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <p class="hero__ordinal"><span>9</span><sup>a</sup></p>
+        <h1>JORNADA NACIONAL DE<br /><span class="highlight">COACHING</span></h1>
+        <p class="hero__quote">&ldquo;Coaching en acción: el poder de la pausa en la era digital&rdquo;</p>
+        <p class="hero__tagline">CONECTA &middot; TRANSFORMA &middot; TRASCIENDE</p>
+        <p class="hero__desc">
+          Un día para inspirarte, aprender y evolucionar
+          <span class="highlight">como coach</span> y como persona.
         </p>
+        <a href="#inscripcion" class="btn">Reserva tu cupo</a>
+      </div>
+
+      <div class="infobar">
+        <div class="container infobar__inner">
+          <div class="infobar__item">
+            <span class="infobar__icon">📅</span>
+            <span>15 de agosto<br />de 2026</span>
+          </div>
+          <div class="infobar__item">
+            <span class="infobar__icon">📍</span>
+            <span>Santa Cruz de la Sierra<br /><strong>Campus UPB</strong></span>
+          </div>
+          <div class="infobar__item">
+            <span class="infobar__icon">👥</span>
+            <span>Coaches, líderes y profesionales<br />que inspiran cambios</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="proyectos" class="section section--alt">
+    <!-- Pilares -->
+    <section id="pilares" class="section pillars">
       <div class="container">
-        <h2>Proyectos</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Proyecto 1</h3>
-            <p>Descripción corta del proyecto y las tecnologías usadas.</p>
-            <a href="#" class="card__link">Ver más &rarr;</a>
+        <div class="pillars__grid">
+          <article class="pillar">
+            <div class="pillar__icon pillar__icon--blue">👥</div>
+            <h3>Aprende</h3>
+            <p>de referentes nacionales e internacionales.</p>
           </article>
-          <article class="card">
-            <h3>Proyecto 2</h3>
-            <p>Descripción corta del proyecto y las tecnologías usadas.</p>
-            <a href="#" class="card__link">Ver más &rarr;</a>
+          <article class="pillar">
+            <div class="pillar__icon pillar__icon--teal">💡</div>
+            <h3>Inspírate</h3>
+            <p>con experiencias prácticas y transformadoras.</p>
           </article>
-          <article class="card">
-            <h3>Proyecto 3</h3>
-            <p>Descripción corta del proyecto y las tecnologías usadas.</p>
-            <a href="#" class="card__link">Ver más &rarr;</a>
+          <article class="pillar">
+            <div class="pillar__icon pillar__icon--green">🔗</div>
+            <h3>Conecta</h3>
+            <p>con una comunidad de coaches y líderes.</p>
+          </article>
+          <article class="pillar">
+            <div class="pillar__icon pillar__icon--orange">❤️</div>
+            <h3>Impacta</h3>
+            <p>tu entorno con mayor conciencia y propósito.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="contacto" class="section">
+    <!-- Inscripción -->
+    <section id="inscripcion" class="section section--alt inscripcion">
       <div class="container">
-        <h2>Contacto</h2>
-        <p>¿Quieres contactarme? Escríbeme a:</p>
-        <a class="btn btn--outline" href="mailto:tu-correo@ejemplo.com">tu-correo@ejemplo.com</a>
+        <h2 class="inscripcion__title">Cupos limitados</h2>
+
+        <div class="inscripcion__grid">
+          <div class="inscripcion__cta">
+            <!-- TODO: reemplazar por <img src="img/qr.png" alt="QR de inscripción"> -->
+            <div class="qr-placeholder" aria-hidden="true">QR</div>
+            <div>
+              <p class="inscripcion__reserve">Reserva tu cupo</p>
+              <a href="https://coaching.org.bo" target="_blank" rel="noopener" class="btn btn--accent">
+                Inscríbete ahora &rarr;
+              </a>
+              <p class="inscripcion__web">🌐 coaching.org.bo</p>
+            </div>
+          </div>
+
+          <div class="inscripcion__contact">
+            <p class="inscripcion__label">Síguenos en:</p>
+            <div class="social">
+              <a href="#" class="social__icon" aria-label="Facebook">f</a>
+              <a href="#" class="social__icon" aria-label="LinkedIn">in</a>
+            </div>
+            <a class="inscripcion__link" href="mailto:accbsantacruz@gmail.com">✉️ accbsantacruz@gmail.com</a>
+            <a class="inscripcion__link" href="https://wa.me/59163514493" target="_blank" rel="noopener">📱 +591 63514493</a>
+          </div>
+
+          <div class="inscripcion__org">
+            <p class="inscripcion__label">Organizado por:</p>
+            <img class="org-logo" src="img/logo-accb.png" alt="Asociación de Coaches Certificados - Bolivia, Santa Cruz" />
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
+    <div class="footer__stripe" aria-hidden="true"></div>
     <div class="container">
-      <p>&copy; <span id="year"></span> Tu Nombre. Hecho con GitHub Pages.</p>
+      <p>&copy; <span id="year"></span> Asociación de Coaches Certificados &mdash; Bolivia, Santa Cruz.</p>
     </div>
   </footer>
 
