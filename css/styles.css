@@ -262,27 +262,6 @@ body {
   align-items: start;
 }
 
-.inscripcion__cta {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.qr-placeholder {
-  flex-shrink: 0;
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 10px;
-  background-color: #fff;
-  color: var(--color-navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-}
-
 .inscripcion__reserve {
   font-weight: 700;
   font-size: 1.1rem;
@@ -379,8 +358,4 @@ body {
     padding-left: 0;
   }
 
-  .inscripcion__cta {
-    flex-direction: column;
-    text-align: center;
-  }
 }
