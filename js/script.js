@@ -140,3 +140,186 @@ if (qrContainer && typeof QRCode !== "undefined") {
   // Genera un QR de ejemplo al cargar la página, con el enlace precargado
   generarQR();
 }
+
+// Visor de imagen con zoom (lightbox): cualquier <img class="zoomable"> abre
+// una vista ampliada con zoom por rueda del mouse, pellizco (pinch), arrastre
+// y doble clic/doble toque.
+const imagenesZoom = document.querySelectorAll("img.zoomable");
+
+if (imagenesZoom.length) {
+  const MIN_ESCALA = 1;
+  const MAX_ESCALA = 5;
+  const ESCALA_DOBLE_CLIC = 2.5;
+
+  // Construye el visor una sola vez y se reutiliza para cualquier imagen
+  const lightbox = document.createElement("div");
+  lightbox.className = "lightbox";
+  lightbox.innerHTML = `
+    <p class="lightbox__hint">Rueda del mouse o pellizco: zoom &middot; arrastra: mover &middot; doble clic: acercar</p>
+    <button class="lightbox__close" aria-label="Cerrar">&times;</button>
+    <div class="lightbox__stage">
+      <img class="lightbox__img" alt="" />
+    </div>
+    <div class="lightbox__toolbar">
+      <button class="lightbox__btn" data-accion="alejar" aria-label="Alejar">&minus;</button>
+      <button class="lightbox__btn lightbox__btn--text" data-accion="reset">Restablecer</button>
+      <button class="lightbox__btn" data-accion="acercar" aria-label="Acercar">+</button>
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  const stage = lightbox.querySelector(".lightbox__stage");
+  const imgVisor = lightbox.querySelector(".lightbox__img");
+  const btnCerrar = lightbox.querySelector(".lightbox__close");
+
+  let escala = 1;
+  let tx = 0;
+  let ty = 0;
+  const pointers = new Map(); // pointerId -> {x, y}
+  let pinchDistanciaInicial = null;
+  let pinchCentroide = null;
+
+  function aplicarTransformacion() {
+    imgVisor.style.transform = `translate(${tx}px, ${ty}px) scale(${escala})`;
+  }
+
+  function limitarEscala(valor) {
+    return Math.min(MAX_ESCALA, Math.max(MIN_ESCALA, valor));
+  }
+
+  // Cambia la escala manteniendo fijo el punto (x, y) —relativo al centro del
+  // stage— bajo el cursor, dedo o centroide del pellizco.
+  function zoomHacia(nuevaEscala, x, y) {
+    nuevaEscala = limitarEscala(nuevaEscala);
+    const contenidoX = (x - tx) / escala;
+    const contenidoY = (y - ty) / escala;
+    tx = x - contenidoX * nuevaEscala;
+    ty = y - contenidoY * nuevaEscala;
+    escala = nuevaEscala;
+
+    if (escala === MIN_ESCALA) {
+      tx = 0;
+      ty = 0;
+    }
+
+    aplicarTransformacion();
+  }
+
+  function puntoRelativoAlStage(clientX, clientY) {
+    const rect = stage.getBoundingClientRect();
+    return {
+      x: clientX - rect.left - rect.width / 2,
+      y: clientY - rect.top - rect.height / 2,
+    };
+  }
+
+  function abrirLightbox(src, alt) {
+    imgVisor.src = src;
+    imgVisor.alt = alt || "";
+    escala = 1;
+    tx = 0;
+    ty = 0;
+    aplicarTransformacion();
+    lightbox.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function cerrarLightbox() {
+    lightbox.classList.remove("is-open");
+    document.body.style.overflow = "";
+    pointers.clear();
+    pinchDistanciaInicial = null;
+  }
+
+  imagenesZoom.forEach((img) => {
+    img.addEventListener("click", () => abrirLightbox(img.src, img.alt));
+  });
+
+  btnCerrar.addEventListener("click", cerrarLightbox);
+
+  // Clic fuera de la imagen (en el fondo oscuro) cierra el visor
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox || event.target === stage) {
+      cerrarLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+      cerrarLightbox();
+    }
+  });
+
+  lightbox.querySelector(".lightbox__toolbar").addEventListener("click", (event) => {
+    const accion = event.target.dataset.accion;
+    if (!accion) return;
+
+    if (accion === "acercar") zoomHacia(escala * 1.4, 0, 0);
+    if (accion === "alejar") zoomHacia(escala / 1.4, 0, 0);
+    if (accion === "reset") zoomHacia(1, 0, 0);
+  });
+
+  // Zoom con la rueda del mouse, centrado en la posición del cursor
+  stage.addEventListener(
+    "wheel",
+    (event) => {
+      event.preventDefault();
+      const punto = puntoRelativoAlStage(event.clientX, event.clientY);
+      const factor = event.deltaY < 0 ? 1.15 : 1 / 1.15;
+      zoomHacia(escala * factor, punto.x, punto.y);
+    },
+    { passive: false }
+  );
+
+  // Doble clic / doble toque: alterna entre tamaño normal y acercado
+  imgVisor.addEventListener("dblclick", (event) => {
+    const punto = puntoRelativoAlStage(event.clientX, event.clientY);
+    zoomHacia(escala > 1 ? 1 : ESCALA_DOBLE_CLIC, punto.x, punto.y);
+  });
+
+  // Arrastre (mouse o un dedo) y pellizco (dos dedos) usando Pointer Events,
+  // que unifican mouse y touch en una sola API.
+  imgVisor.addEventListener("pointerdown", (event) => {
+    imgVisor.setPointerCapture(event.pointerId);
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+    if (pointers.size === 2) {
+      const [p1, p2] = pointers.values();
+      pinchDistanciaInicial = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+      pinchCentroide = puntoRelativoAlStage((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+    } else if (pointers.size === 1 && escala > 1) {
+      imgVisor.classList.add("is-panning");
+    }
+  });
+
+  imgVisor.addEventListener("pointermove", (event) => {
+    if (!pointers.has(event.pointerId)) return;
+    const anterior = pointers.get(event.pointerId);
+    const actual = { x: event.clientX, y: event.clientY };
+    pointers.set(event.pointerId, actual);
+
+    if (pointers.size === 2) {
+      const [p1, p2] = pointers.values();
+      const distancia = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+      const centroide = puntoRelativoAlStage((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+
+      if (pinchDistanciaInicial) {
+        zoomHacia(escala * (distancia / pinchDistanciaInicial), centroide.x, centroide.y);
+      }
+      pinchDistanciaInicial = distancia;
+    } else if (pointers.size === 1 && escala > 1) {
+      tx += actual.x - anterior.x;
+      ty += actual.y - anterior.y;
+      aplicarTransformacion();
+    }
+  });
+
+  function soltarPuntero(event) {
+    pointers.delete(event.pointerId);
+    imgVisor.classList.remove("is-panning");
+    if (pointers.size < 2) pinchDistanciaInicial = null;
+  }
+
+  imgVisor.addEventListener("pointerup", soltarPuntero);
+  imgVisor.addEventListener("pointercancel", soltarPuntero);
+}
