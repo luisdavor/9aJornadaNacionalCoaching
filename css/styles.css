@@ -9,6 +9,8 @@
   --color-text: #f3f4f7;
   --color-text-muted: #b7bfd6;
   --max-width: 1100px;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-display: "Poppins", "Inter", "Segoe UI", system-ui, sans-serif;
 }
 
 * {
@@ -21,10 +23,19 @@ html {
 
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--color-navy);
   color: var(--color-text);
   line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .container {
@@ -55,6 +66,7 @@ body {
   background-color: #f5f6f8;
   border-radius: 6px;
   padding: 0.25rem 0.5rem;
+  animation: fade-in 0.8s ease both;
 }
 
 .logobar__partner {
@@ -84,6 +96,71 @@ body {
     radial-gradient(circle at 20% 80%, rgba(111, 191, 63, 0.2), transparent 50%),
     var(--color-navy);
   z-index: 0;
+  overflow: hidden;
+}
+
+/* Partículas flotantes (eco de los "pixeles digitales" del afiche) */
+.dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  opacity: 0.55;
+  animation: float 9s ease-in-out infinite;
+}
+
+.dot--sm {
+  width: 8px;
+  height: 8px;
+}
+
+.dot--blue {
+  background-color: var(--color-blue);
+  top: 18%;
+  left: 12%;
+  animation-delay: 0s;
+}
+
+.dot--green {
+  background-color: var(--color-green);
+  top: 65%;
+  left: 8%;
+  animation-delay: 1.5s;
+}
+
+.dot--teal {
+  background-color: var(--color-teal);
+  top: 30%;
+  left: 88%;
+  animation-delay: 3s;
+}
+
+.dot--gold {
+  background-color: var(--color-gold);
+  top: 75%;
+  left: 82%;
+  animation-delay: 4.5s;
+}
+
+.dot.dot--sm.dot--blue {
+  top: 45%;
+  left: 92%;
+  animation-delay: 2s;
+}
+
+.dot.dot--sm.dot--green {
+  top: 10%;
+  left: 70%;
+  animation-delay: 5.5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(12px, -18px) rotate(20deg);
+  }
 }
 
 .hero__content {
@@ -95,10 +172,13 @@ body {
 
 .hero__ordinal {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 5rem;
   font-weight: 800;
   color: var(--color-gold);
   line-height: 1;
+  text-shadow: 0 0 24px rgba(232, 169, 75, 0.55);
+  animation: glow-pulse 3s ease-in-out infinite;
 }
 
 .hero__ordinal sup {
@@ -107,13 +187,20 @@ body {
 
 .hero h1 {
   margin: 0.5rem 0 1.25rem;
-  font-size: 2.4rem;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
   letter-spacing: 0.02em;
   color: var(--color-text);
 }
 
 .highlight {
-  color: var(--color-green);
+  background: linear-gradient(90deg, var(--color-green), var(--color-teal), var(--color-gold), var(--color-green));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 6s linear infinite;
 }
 
 .hero__quote {
@@ -121,13 +208,29 @@ body {
   color: var(--color-text);
   max-width: 40rem;
   margin: 0 auto 1rem;
+  font-style: italic;
 }
 
 .hero__tagline {
+  position: relative;
+  display: inline-block;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--color-text);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.6rem;
+}
+
+.hero__tagline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-green), var(--color-gold));
+  transform: translateX(-50%);
 }
 
 .hero__desc {
@@ -135,6 +238,56 @@ body {
   max-width: 32rem;
   margin: 0 auto 2rem;
 }
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 18px rgba(232, 169, 75, 0.45);
+  }
+  50% {
+    text-shadow: 0 0 34px rgba(232, 169, 75, 0.85);
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 300% center;
+  }
+}
+
+/* Entrada animada del contenido del hero */
+.hero__reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: hero-in 0.8s ease forwards;
+}
+
+.hero__reveal--1 { animation-delay: 0.15s; }
+.hero__reveal--2 { animation-delay: 0.3s; }
+.hero__reveal--3 { animation-delay: 0.45s; }
+.hero__reveal--4 { animation-delay: 0.6s; }
+
+@keyframes hero-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación al hacer scroll (activada por JS con IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--delay-1.is-visible { transition-delay: 0.1s; }
+.reveal--delay-2.is-visible { transition-delay: 0.2s; }
+.reveal--delay-3.is-visible { transition-delay: 0.3s; }
 
 /* Buttons */
 .btn {
@@ -199,6 +352,17 @@ body {
   text-align: center;
 }
 
+.pillar {
+  padding: 1.5rem 1rem;
+  border-radius: 14px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.pillar:hover {
+  transform: translateY(-6px);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
 .pillar__icon {
   width: 4.5rem;
   height: 4.5rem;
@@ -209,27 +373,50 @@ body {
   justify-content: center;
   font-size: 1.8rem;
   color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar:hover .pillar__icon {
+  transform: scale(1.12) rotate(-6deg);
 }
 
 .pillar__icon--blue {
   background-color: var(--color-blue);
 }
 
+.pillar:hover .pillar__icon--blue {
+  box-shadow: 0 0 0 10px rgba(47, 111, 214, 0.18);
+}
+
 .pillar__icon--teal {
   background-color: var(--color-teal);
+}
+
+.pillar:hover .pillar__icon--teal {
+  box-shadow: 0 0 0 10px rgba(26, 166, 160, 0.18);
 }
 
 .pillar__icon--green {
   background-color: var(--color-green);
 }
 
+.pillar:hover .pillar__icon--green {
+  box-shadow: 0 0 0 10px rgba(111, 191, 63, 0.18);
+}
+
 .pillar__icon--orange {
   background-color: var(--color-orange);
 }
 
+.pillar:hover .pillar__icon--orange {
+  box-shadow: 0 0 0 10px rgba(240, 129, 44, 0.18);
+}
+
 .pillar h3 {
   margin: 0 0 0.5rem;
+  font-family: var(--font-display);
   font-size: 1.15rem;
+  font-weight: 700;
 }
 
 .pillar p {
@@ -241,7 +428,9 @@ body {
 /* Inscripción */
 .inscripcion__title {
   text-align: center;
+  font-family: var(--font-display);
   font-size: 1.9rem;
+  font-weight: 800;
   letter-spacing: 0.05em;
   margin-bottom: 2.5rem;
 }
@@ -283,6 +472,12 @@ body {
   text-decoration: none;
   font-weight: 700;
   font-size: 0.85rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.social__icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(47, 111, 214, 0.4);
 }
 
 .inscripcion__link {
@@ -315,7 +510,9 @@ body {
 }
 
 .footer__stripe {
+  position: relative;
   height: 8px;
+  overflow: hidden;
   background: linear-gradient(
     90deg,
     var(--color-blue) 0%,
@@ -328,6 +525,20 @@ body {
     var(--color-orange) 100%
   );
   margin-bottom: 1.5rem;
+}
+
+.footer__stripe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  width: 40%;
+  animation: sweep 4s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
 }
 
 @media (max-width: 600px) {

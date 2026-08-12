@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>9ª Jornada Nacional de Coaching</title>
   <meta name="description" content="Coaching en acción: el poder de la pausa en la era digital. 15 de agosto de 2026, Santa Cruz de la Sierra, Campus UPB." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -23,13 +26,20 @@
   <main>
     <!-- Hero -->
     <section class="hero">
-      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <span class="dot dot--blue"></span>
+        <span class="dot dot--green"></span>
+        <span class="dot dot--teal"></span>
+        <span class="dot dot--gold"></span>
+        <span class="dot dot--blue dot--sm"></span>
+        <span class="dot dot--green dot--sm"></span>
+      </div>
       <div class="container hero__content">
-        <p class="hero__ordinal"><span>9</span><sup>a</sup></p>
-        <h1>JORNADA NACIONAL DE<br /><span class="highlight">COACHING</span></h1>
-        <p class="hero__quote">&ldquo;Coaching en acción: el poder de la pausa en la era digital&rdquo;</p>
-        <p class="hero__tagline">CONECTA &middot; TRANSFORMA &middot; TRASCIENDE</p>
-        <p class="hero__desc">
+        <p class="hero__ordinal hero__reveal"><span>9</span><sup>a</sup></p>
+        <h1 class="hero__reveal hero__reveal--1">JORNADA NACIONAL DE<br /><span class="highlight">COACHING</span></h1>
+        <p class="hero__quote hero__reveal hero__reveal--2">&ldquo;Coaching en acción: el poder de la pausa en la era digital&rdquo;</p>
+        <p class="hero__tagline hero__reveal hero__reveal--3">CONECTA &middot; TRANSFORMA &middot; TRASCIENDE</p>
+        <p class="hero__desc hero__reveal hero__reveal--4">
           Un día para inspirarte, aprender y evolucionar
           <span class="highlight">como coach</span> y como persona.
         </p>
@@ -57,22 +67,22 @@
     <section id="pilares" class="section pillars">
       <div class="container">
         <div class="pillars__grid">
-          <article class="pillar">
+          <article class="pillar reveal">
             <div class="pillar__icon pillar__icon--blue">👥</div>
             <h3>Aprende</h3>
             <p>de referentes nacionales e internacionales.</p>
           </article>
-          <article class="pillar">
+          <article class="pillar reveal reveal--delay-1">
             <div class="pillar__icon pillar__icon--teal">💡</div>
             <h3>Inspírate</h3>
             <p>con experiencias prácticas y transformadoras.</p>
           </article>
-          <article class="pillar">
+          <article class="pillar reveal reveal--delay-2">
             <div class="pillar__icon pillar__icon--green">🔗</div>
             <h3>Conecta</h3>
             <p>con una comunidad de coaches y líderes.</p>
           </article>
-          <article class="pillar">
+          <article class="pillar reveal reveal--delay-3">
             <div class="pillar__icon pillar__icon--orange">❤️</div>
             <h3>Impacta</h3>
             <p>tu entorno con mayor conciencia y propósito.</p>
@@ -84,14 +94,14 @@
     <!-- Inscripción -->
     <section id="inscripcion" class="section section--alt inscripcion">
       <div class="container">
-        <h2 class="inscripcion__title">Cupos limitados</h2>
+        <h2 class="inscripcion__title reveal">Cupos limitados</h2>
 
         <div class="inscripcion__grid">
-          <div class="inscripcion__cta">
+          <div class="inscripcion__cta reveal">
             <p class="inscripcion__web">🌐 coaching.org.bo</p>
           </div>
 
-          <div class="inscripcion__contact">
+          <div class="inscripcion__contact reveal reveal--delay-1">
             <p class="inscripcion__label">Síguenos en:</p>
             <div class="social">
               <a href="#" class="social__icon" aria-label="Facebook">f</a>
@@ -101,7 +111,7 @@
             <a class="inscripcion__link" href="https://wa.me/59163514493" target="_blank" rel="noopener">📱 +591 63514493</a>
           </div>
 
-          <div class="inscripcion__org">
+          <div class="inscripcion__org reveal reveal--delay-2">
             <p class="inscripcion__label">Organizado por:</p>
             <img class="org-logo" src="img/logo-accb.png" alt="Asociación de Coaches Certificados - Bolivia, Santa Cruz" />
           </div>
