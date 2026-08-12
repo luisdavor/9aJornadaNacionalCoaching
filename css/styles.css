@@ -153,15 +153,6 @@ body {
   box-shadow: 0 8px 20px rgba(232, 169, 75, 0.35);
 }
 
-.btn--accent {
-  background-color: var(--color-green);
-  color: #0b1530;
-}
-
-.btn--accent:hover {
-  box-shadow: 0 8px 20px rgba(111, 191, 63, 0.35);
-}
-
 /* Barra de info (fecha / lugar / audiencia) */
 .infobar {
   position: relative;
@@ -262,16 +253,11 @@ body {
   align-items: start;
 }
 
-.inscripcion__reserve {
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin: 0 0 0.6rem;
-}
-
 .inscripcion__web {
-  margin: 0.6rem 0 0;
+  margin: 0;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .inscripcion__label {
