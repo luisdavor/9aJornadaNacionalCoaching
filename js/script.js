@@ -1,4 +1,4 @@
-// Actualiza automáticamente el año en el footer
+﻿// Actualiza automáticamente el año en el footer
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // Anima los elementos con clase "reveal" cuando entran en pantalla
@@ -32,6 +32,46 @@ if (qrContainer && typeof QRCode !== "undefined") {
   const downloadBtn = document.getElementById("qr-download");
 
   let ultimaImagenQR = null; // dataURL de la última tarjeta generada, para el botón de descarga
+  let ultimoNombreArchivo = "codigo-qr"; // nombre de archivo sugerido para esa misma tarjeta
+
+  // Convierte un texto libre (título de página, slug de URL) en un nombre de
+  // archivo seguro: sin acentos, en minúsculas y separado por guiones.
+  function convertirEnNombreDeArchivo(texto) {
+    const limpio = texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    return limpio || "codigo-qr";
+  }
+
+  // Intenta obtener el <title> real de la página del enlace (funciona cuando
+  // el enlace es del propio sitio, por same-origin). Si no se puede leer
+  // (enlace externo, sin conexión, etc.), usa el último segmento de la URL.
+  async function obtenerNombreDeArchivo(url) {
+    try {
+      const respuesta = await fetch(url);
+      if (respuesta.ok) {
+        const html = await respuesta.text();
+        const titulo = new DOMParser().parseFromString(html, "text/html").title;
+        if (titulo) return convertirEnNombreDeArchivo(titulo.split("|")[0]);
+      }
+    } catch (error) {
+      // Enlace externo o sin acceso: seguimos con el nombre de respaldo
+    }
+
+    try {
+      const segmentos = new URL(url).pathname.split("/").filter(Boolean);
+      const ultimo = segmentos.pop();
+      if (ultimo) return convertirEnNombreDeArchivo(ultimo.replace(/\.html?$/, ""));
+    } catch (error) {
+      // URL inválida: usamos el nombre por defecto
+    }
+
+    return "codigo-qr";
+  }
 
   // Dibuja un rectángulo con esquinas redondeadas (helper de canvas)
   function trazarRectRedondeado(ctx, x, y, w, h, r) {
@@ -112,7 +152,13 @@ if (qrContainer && typeof QRCode !== "undefined") {
     const valor = urlInput.value.trim();
     if (!valor) return;
 
-    ultimaImagenQR = await crearTarjetaQR(valor);
+    const [imagen, nombreArchivo] = await Promise.all([
+      crearTarjetaQR(valor),
+      obtenerNombreDeArchivo(valor),
+    ]);
+
+    ultimaImagenQR = imagen;
+    ultimoNombreArchivo = nombreArchivo;
 
     qrContainer.innerHTML = "";
     const img = document.createElement("img");
@@ -132,7 +178,7 @@ if (qrContainer && typeof QRCode !== "undefined") {
     if (!ultimaImagenQR) return;
 
     const link = document.createElement("a");
-    link.download = "qr-jornada-coaching.png";
+    link.download = `${ultimoNombreArchivo}.png`;
     link.href = ultimaImagenQR;
     link.click();
   });
